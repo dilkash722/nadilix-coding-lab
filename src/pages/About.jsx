@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import avtar from "../assets/avtar.jpg";
 import {
   Target,
   Eye,
@@ -90,7 +91,7 @@ const AboutPage = () => {
                 {/* Circular border avatar */}
                 <div className="relative w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] rounded-full border border-white/20 p-3 bg-[#0a0c12]">
                   <img
-                    src="https://media.licdn.com/dms/image/v2/D4D03AQEldctReMxvhQ/profile-displayphoto-crop_800_800/B4DZncvjCtHsAI-/0/1760345076623?e=1772668800&v=beta&t=t-5Vx7rr6LqEp0Zt4qXauNFLA0puhdHeSfdB_hEXghs"
+                    src={avtar}
                     alt="Founder"
                     className="w-full h-full object-cover rounded-full"
                   />

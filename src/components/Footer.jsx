@@ -12,26 +12,38 @@ export default function Footer() {
           {/* BRAND */}
           <div className="lg:col-span-5 space-y-5">
             <div className="flex flex-col items-start select-none">
-              <Link to="/" className="group outline-none">
-                <div className="flex items-center gap-3">
-                  <h2 className="text-[22px] font-extrabold tracking-[-0.05em] text-white">
-                    Nadilix
-                  </h2>
+              <Link to="/" className="group outline-none select-none">
+                <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
+                  {/* Left Block */}
+                  <div className="flex flex-col justify-center min-w-fit sm:min-w-[130px] leading-[1.1]">
+                    <h2 className="text-[20px] sm:text-[22px] font-medium tracking-[0.015em] text-white">
+                      NADILIX
+                    </h2>
 
-                  <div className="h-7 w-[1px] bg-gradient-to-b from-transparent via-slate-700 to-transparent rotate-[15deg]" />
+                    <div className="flex items-center gap-1 mt-[1px]">
+                      <span className="h-[1px] w-3 sm:w-4 bg-slate-600" />
 
-                  <div className="flex flex-col justify-center">
-                    <span className="text-[9px] font-bold tracking-[0.25em] text-blue-500 uppercase leading-tight">
+                      <span className="text-[8px] sm:text-[10px] font-medium tracking-[0.22em] text-slate-400 uppercase group-hover:text-blue-400 transition">
+                        CODING LAB
+                      </span>
+
+                      <span className="h-[1px] w-3 sm:w-4 bg-slate-600" />
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="h-5 sm:h-6 w-[1px] bg-gradient-to-b from-transparent via-slate-700 to-transparent" />
+
+                  {/* Right Block */}
+                  <div className="flex flex-col justify-center min-w-fit sm:min-w-[130px] leading-[1.3]">
+                    <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.16em] text-blue-500 uppercase">
                       Full Stack
                     </span>
-                    <span className="text-[9px] font-medium tracking-[0.25em] text-slate-400 uppercase leading-tight group-hover:text-emerald-400 transition-colors duration-300">
+
+                    <span className="mt-[2px] text-[8px] sm:text-[9px] font-medium tracking-[0.16em] text-slate-400 uppercase group-hover:text-emerald-400 transition-colors duration-300">
                       Data Analytics
                     </span>
                   </div>
-                </div>
-
-                <div className="relative mt-2 h-[1px] w-full max-w-[160px] bg-slate-800">
-                  <div className="absolute top-0 left-0 h-full w-0 bg-blue-500 group-hover:w-full transition-all duration-700 ease-out" />
                 </div>
               </Link>
             </div>

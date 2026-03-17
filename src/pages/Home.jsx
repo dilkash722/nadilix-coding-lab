@@ -75,7 +75,7 @@ const HomePage = () => {
           {/* Main Heading */}
           <motion.h1
             variants={itemVariants}
-            className="mt-6 text-[clamp(3rem,8vw,6rem)] leading-tight text-white"
+            className="mt-6 text-[clamp(3rem,8vw,6rem)] leading-tight text-white font-extrabold uppercase"
           >
             Learn to Build
             <span className="text-blue-500"> Real Software </span>
@@ -85,7 +85,7 @@ const HomePage = () => {
           {/* Description */}
           <motion.p
             variants={itemVariants}
-            className="mt-8 max-w-3xl mx-auto text-slate-300 text-[17px] md:text-[19px] leading-relaxed font-normal"
+            className="mt-8 max-w-3xl mx-auto text-slate-400 text-[17px] md:text-[19px] leading-relaxed font-normal"
           >
             Nadilix is a practical coding and data training center where
             students build real software projects and gain real-world
@@ -126,7 +126,7 @@ const HomePage = () => {
             Practical Learning
           </span>
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-tighter text-white leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-tighter text-white leading-tight uppercase">
             Code Practice
           </h2>
         </div>
@@ -142,7 +142,7 @@ const HomePage = () => {
                 <MonitorPlay size={30} />
               </div>
 
-              <h3 className="text-2xl md:text-4xl  text-white leading-snug tracking-tight">
+              <h3 className="text-2xl md:text-4xl  text-white leading-snug tracking-tight uppercase">
                 Live Coding
               </h3>
 
@@ -163,7 +163,7 @@ const HomePage = () => {
                 <BrainCircuit size={28} />
               </div>
 
-              <h3 className="text-xl md:text-2xl  text-white leading-snug tracking-tight">
+              <h3 className="text-xl md:text-2xl  text-white leading-snug tracking-tight uppercase">
                 AI Assisted Learning
               </h3>
 
@@ -184,7 +184,7 @@ const HomePage = () => {
                 <Laptop size={28} />
               </div>
 
-              <h3 className="text-xl md:text-2xl  text-white leading-snug tracking-tight">
+              <h3 className="text-xl md:text-2xl  text-white leading-snug tracking-tight uppercase">
                 Bring Your Laptop
               </h3>
 
@@ -233,7 +233,7 @@ const HomePage = () => {
               Technology Stack
             </span>
 
-            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-tighter text-white leading-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-tighter text-white leading-tight uppercase">
               Tech Stack
             </h2>
           </div>
@@ -253,7 +253,7 @@ const HomePage = () => {
               Practice System
             </span>
 
-            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-tighter text-white leading-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-tighter text-white leading-tight uppercase">
               Daily Workflow
             </h2>
           </div>
@@ -355,7 +355,7 @@ const HomePage = () => {
 
           {/* Content */}
           <div className="relative z-10">
-            <h2 className="text-3xl sm:text-5xl md:text-7xl  text-white tracking-tight leading-[1.1] mb-6">
+            <h2 className="text-3xl sm:text-5xl md:text-7xl  text-white tracking-tight leading-[1.1] mb-6 uppercase">
               Visit Nadilix <br className="hidden sm:block" />
               Training Center
             </h2>

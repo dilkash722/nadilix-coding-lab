@@ -53,10 +53,9 @@ const AboutPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-4xl sm:text-6xl md:text-7xl  text-white leading-[1.15] tracking-tight"
+            className="text-4xl sm:text-6xl md:text-7xl  text-white leading-[1.15] uppercase tracking-tight"
           >
-            Learn Real Software
-            <span className="text-blue-500"> Development</span>
+            Real Development
           </motion.h1>
 
           {/* Description */}
@@ -102,7 +101,7 @@ const AboutPage = () => {
             {/* RIGHT CONTENT */}
             <div className="p-8 md:p-10 space-y-6 flex flex-col justify-center">
               <div>
-                <h2 className="text-2xl md:text-3xl  text-white">
+                <h2 className="text-2xl md:text-3xl  text-white uppercase tracking-tight font-bold">
                   Md Dilkhush
                 </h2>
                 <p className="text-blue-500 text-sm mt-1">

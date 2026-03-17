@@ -35,7 +35,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-6xl  text-white leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl  text-white leading-tight uppercase"
           >
             Contact Nadilix
           </motion.h1>
@@ -57,19 +57,19 @@ export default function ContactPage() {
           {[
             {
               label: "Terminal_Loc",
-              value: "Katihar, Bihar",
-              sub: "854105 // HQ_01",
+              value: "Madhav Niketan Pani Tanki Chowk, Katihar, Bihar",
+              sub: "854105 // Nadilix_Coding_Lab",
               icon: <MapPin size={22} />,
             },
             {
               label: "Direct_Line",
-              value: "+91 8709889091",
-              sub: "MON-SAT // 10:00-18:00",
+              value: "+91 7763937638",
+              sub: "MON-FRI // 10:00 AM - 05:00 PM",
               icon: <Phone size={22} />,
             },
             {
               label: "Digital_Mail",
-              value: "info@galaxy.com",
+              value: "danieldilkash@gamil.com",
               sub: "24/7 // Instant Sync",
               icon: <Mail size={22} />,
             },

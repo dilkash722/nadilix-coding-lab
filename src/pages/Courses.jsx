@@ -19,8 +19,8 @@ const courses = [
     stack: ["Python", "JavaScript", "Java", "C", "C++", "MySQL", "MongoDB"],
     points: [
       "Strong programming fundamentals",
-      "Backend and database integration",
-      "Project based learning approach",
+      "Hands-on coding with real languages",
+      "Build projects with backend and databases",
     ],
     icon: <Code size={40} className="text-indigo-500" />,
     border: "group-hover:border-indigo-500/50",
@@ -132,9 +132,9 @@ export default function Courses() {
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-4xl sm:text-5xl md:text-6xl  text-white leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl  text-white leading-tight uppercase"
           >
-            Our Learning Path
+            We Offers
           </motion.h1>
 
           {/* Description */}

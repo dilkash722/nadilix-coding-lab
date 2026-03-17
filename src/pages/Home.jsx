@@ -75,13 +75,12 @@ const HomePage = () => {
           {/* Main Heading */}
           <motion.h1
             variants={itemVariants}
-            className="mt-6 text-[clamp(3rem,8vw,6rem)] leading-tight text-white font-extrabold uppercase"
+            className="mt-6 text-[clamp(2.5rem,6vw,6rem)] leading-[1.2] tracking-[-0.01em] text-white font-extrabold uppercase"
           >
-            Learn to Build
-            <span className="text-blue-500"> Real Software </span>
+            Learn to Build <br />
+            <span className="text-blue-500">Real Software</span> <br />
             Projects
           </motion.h1>
-
           {/* Description */}
           <motion.p
             variants={itemVariants}
@@ -126,7 +125,7 @@ const HomePage = () => {
             Practical Learning
           </span>
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-tighter text-white leading-tight uppercase">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-wide text-white uppercase">
             Code Practice
           </h2>
         </div>
@@ -233,7 +232,7 @@ const HomePage = () => {
               Technology Stack
             </span>
 
-            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-tighter text-white leading-tight uppercase">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-wide text-white uppercase">
               Tech Stack
             </h2>
           </div>
@@ -253,7 +252,7 @@ const HomePage = () => {
               Practice System
             </span>
 
-            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-tighter text-white leading-tight uppercase">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-wide text-white uppercase">
               Daily Workflow
             </h2>
           </div>

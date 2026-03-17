@@ -104,7 +104,7 @@ const AboutPage = () => {
                 <h2 className="text-2xl md:text-3xl  text-white uppercase tracking-tight font-bold">
                   Md Dilkhush
                 </h2>
-                <p className="text-blue-500 text-sm mt-1">
+                <p className="text-blue-500 text-sm mt-1 uppercase tracking-wide font-medium">
                   Founder & Lead Mentor, Nadilix
                 </p>
               </div>
@@ -139,7 +139,7 @@ const AboutPage = () => {
       </section>
       {/* --- PILLARS --- */}
       <section className="py-16 px-6 max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl md:text-6xl  mb-16 tracking-tighter text-white">
+        <h2 className="text-4xl md:text-6xl  mb-16 tracking-wide text-white uppercase">
           Nadilix Pillars
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

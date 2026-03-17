@@ -16,7 +16,7 @@ export default function Footer() {
                 <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
                   {/* Left Block */}
                   <div className="flex flex-col justify-center min-w-fit sm:min-w-[130px] leading-[1.1]">
-                    <h2 className="text-[20px] sm:text-[22px] font-medium tracking-[0.015em] text-white">
+                    <h2 className="text-[20px] sm:text-[22px] font-extrabold tracking-[0.015em] text-white">
                       NADILIX
                     </h2>
 

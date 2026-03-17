@@ -55,7 +55,7 @@ export default function Navbar() {
             <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
               {/* Left Block */}
               <div className="flex flex-col justify-center min-w-fit sm:min-w-[130px] leading-[1.1]">
-                <h1 className="text-xl sm:text-[28px] lg:text-[34px] font-medium tracking-[0.015em] text-white">
+                <h1 className="text-md sm:text-[28px] lg:text-[32px] font-extrabold tracking-[0.015em] text-white">
                   NADILIX
                 </h1>
 
@@ -155,15 +155,15 @@ export default function Navbar() {
               <div className="flex flex-col items-start mb-10 select-none">
                 <div className="flex items-center gap-2">
                   {/* Left Block */}
-                  <div className="flex flex-col justify-center leading-[1.1]">
-                    <h2 className="text-xl font-medium tracking-[0.015em] text-white">
+                  <div className="flex flex-col justify-center">
+                    <h2 className="text-xl font-extrabold tracking-[0.015em] text-white leading-none">
                       NADILIX
                     </h2>
 
-                    <div className="flex items-center gap-1 mt-[1px]">
+                    <div className="flex items-center gap-2 mt-1">
                       <span className="h-[1px] w-3 bg-slate-600" />
 
-                      <span className="text-[8px] font-medium tracking-[0.22em] text-slate-400 uppercase">
+                      <span className="text-[8px] font-medium tracking-[0.22em] text-slate-400 uppercase leading-none">
                         CODING LAB
                       </span>
 
@@ -175,12 +175,12 @@ export default function Navbar() {
                   <div className="h-5 w-[1px] bg-gradient-to-b from-transparent via-slate-700 to-transparent" />
 
                   {/* Right Block */}
-                  <div className="flex flex-col justify-center leading-[1.3]">
-                    <span className="text-[9px] font-semibold tracking-[0.16em] text-blue-500 uppercase">
+                  <div className="flex flex-col justify-center">
+                    <span className="text-[9px] font-semibold tracking-[0.16em] text-blue-500 uppercase leading-none">
                       Full Stack
                     </span>
 
-                    <span className="mt-[2px] text-[8px] font-medium tracking-[0.16em] text-slate-400 uppercase">
+                    <span className="mt-1 text-[8px] font-medium tracking-[0.16em] text-slate-400 uppercase leading-none">
                       Data Analytics
                     </span>
                   </div>

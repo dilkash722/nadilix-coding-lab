@@ -14,18 +14,21 @@ import {
   XCircle,
 } from "lucide-react";
 
+// Supabase import
+import { supabase } from "@/lib/supabase";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const adminEmail = "admin@nadilix.com";
-    const adminPassword = "Admin@123";
-
+    // validation
     if (!email || !password) {
       toast.error("Please fill all fields", {
         icon: <XCircle size={18} />,
@@ -40,34 +43,45 @@ export default function Login() {
       return;
     }
 
-    if (email !== adminEmail || password !== adminPassword) {
+    try {
+      setLoading(true);
+
+      // Supabase login
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) throw error;
+
+      toast.success("Login successful", {
+        icon: <CheckCircle size={18} />,
+      });
+
+      setTimeout(() => {
+        navigate("/admin/dashboard");
+      }, 700);
+    } catch (err) {
+      console.error(err);
+
       toast.error("Invalid email or password", {
         icon: <XCircle size={18} />,
       });
-      return;
+    } finally {
+      setLoading(false);
     }
-
-    localStorage.setItem("adminAuth", "true");
-
-    toast.success("Login successful", {
-      icon: <CheckCircle size={18} />,
-    });
-
-    setTimeout(() => {
-      navigate("/admin/dashboard");
-    }, 700);
   };
 
   return (
     <div className="relative min-h-screen bg-[#02040a] text-slate-300 overflow-hidden">
-      {/* Hero Background Effects */}
+      {/* Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 blur-[140px] rounded-full" />
         <div className="absolute bottom-[10%] right-[-5%] w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
 
-      {/* Center Wrapper */}
+      {/* Card */}
       <div className="relative z-10 flex items-start justify-center pt-28 px-4">
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.96 }}
@@ -75,6 +89,7 @@ export default function Login() {
           transition={{ duration: 0.35 }}
           className="w-full max-w-md bg-transparent border border-white/10 rounded-2xl p-8 backdrop-blur-xl hover:border-blue-500/50 transition"
         >
+          {/* Close */}
           <button
             onClick={() => navigate("/")}
             className="absolute top-5 right-5 p-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:border-white/30 transition"
@@ -82,19 +97,27 @@ export default function Login() {
             <X size={18} />
           </button>
 
-          <div className="flex flex-col items-center mb-6">
-            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-600 mb-3">
-              <Shield size={22} className="text-white" />
+          {/* Header */}
+          <div className="flex flex-col items-center mb-8">
+            {/* Icon */}
+            <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-blue-600 mb-4 shadow-lg">
+              <Shield size={24} className="text-white" />
             </div>
 
-            <h1 className="text-xl font-semibold text-white">Admin Login</h1>
+            {/* Brand */}
+            <h1 className="text-2xl font-semibold text-white tracking-tight">
+              Nadilix Access
+            </h1>
 
-            <p className="text-sm text-slate-400 mt-1 text-center">
-              Secure access to dashboard
+            {/* Subtitle */}
+            <p className="text-sm text-slate-400 mt-2 text-center max-w-xs leading-relaxed">
+              Secure access to the admin dashboard
             </p>
           </div>
 
+          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email */}
             <div>
               <label className="text-sm text-slate-400 block mb-2">Email</label>
 
@@ -110,6 +133,7 @@ export default function Login() {
               </div>
             </div>
 
+            {/* Password */}
             <div>
               <label className="text-sm text-slate-400 block mb-2">
                 Password
@@ -136,12 +160,14 @@ export default function Login() {
               </div>
             </div>
 
+            {/* Submit */}
             <button
               type="submit"
+              disabled={loading}
               className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 transition text-white font-medium"
             >
               <LogIn size={18} />
-              Login
+              {loading ? "Logging in..." : "Login"}
             </button>
           </form>
         </motion.div>

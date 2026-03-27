@@ -8,6 +8,7 @@ import {
   Code,
   Zap,
   Cpu,
+  Phone,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -218,14 +219,21 @@ export default function Courses() {
               </div>
 
               {/* Footer Actions */}
-              <div className="flex items-center gap-6 pt-6 border-t border-white/5 flex-wrap">
-                <Button className="bg-white text-black hover:bg-blue-600 hover:text-white h-11 px-8 rounded-xl font-medium text-sm tracking-wide transition-all shadow-md">
-                  Visit Center <ArrowRight size={14} className="ml-2" />
-                </Button>
-
-                <button className="text-sm font-medium tracking-wide text-slate-600 hover:text-white transition-colors">
-                  Batch Info
+              <div className="flex items-center gap-4 pt-6 border-t border-white/5 flex-wrap">
+                {/* View Details */}
+                <button className="flex items-center gap-2 text-sm font-medium tracking-wide text-slate-400 hover:text-white transition-colors">
+                  <span>View Details</span>
+                  <ArrowRight size={14} />
                 </button>
+
+                {/* Call Now */}
+                <a
+                  href="tel:+917763937638"
+                  className="flex items-center gap-2 bg-white text-black hover:bg-blue-600 hover:text-white h-11 px-6 rounded-xl font-medium text-sm tracking-wide transition-all shadow-md"
+                >
+                  <Phone size={16} />
+                  <span>Call Now</span>
+                </a>
               </div>
             </div>
           </div>

@@ -1,8 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Zap, ShieldCheck, Mail } from "lucide-react";
+
+import {
+  MapPin,
+  Phone,
+  Zap,
+  ShieldCheck,
+  Mail,
+  User,
+  BookOpen,
+} from "lucide-react";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+
+// Supabase client import (configured in lib folder)
+import { supabase } from "@/lib/supabase";
+
+// Toast notification (sonner)
+import { toast } from "sonner";
 
 export default function ContactPage() {
+  // Form state (controlled inputs)
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    course: "",
+  });
+
+  // Loading state for submit button
+  const [loading, setLoading] = useState(false);
+
+  // Animation variants (framer-motion)
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -12,47 +48,65 @@ export default function ContactPage() {
     },
   };
 
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!form.name || !form.phone || !form.course) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const { error } = await supabase.from("enquiries").insert([
+        {
+          name: form.name,
+          phone: form.phone,
+          course: form.course,
+        },
+      ]);
+
+      if (error) throw error;
+
+      toast.success(`Thanks ${form.name}, we’ll contact you soon.`);
+
+      setForm({
+        name: "",
+        phone: "",
+        course: "",
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="bg-[#02040a] text-white min-h-screen font-sans selection:bg-blue-600/30 overflow-x-hidden">
-      {/* --- HERO --- */}
+      {/* Hero Section */}
       <section className="relative pt-28 pb-20 px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto space-y-6"
-        >
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-sm text-blue-500 font-medium tracking-wide"
-          >
+        <motion.div className="max-w-4xl mx-auto space-y-6">
+          <motion.p className="text-sm text-blue-500 font-medium tracking-wide">
             Get in Touch
           </motion.p>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-6xl  text-white leading-tight uppercase"
-          >
+          <motion.h1 className="text-4xl sm:text-5xl md:text-6xl text-white leading-tight uppercase">
             Contact Nadilix
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
-          >
+          <motion.p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             Reach out for course details, admissions, and training guidance.
           </motion.p>
         </motion.div>
       </section>
-      {/* --- CONTENT GRID --- */}
+
+      {/* Main Content Grid */}
       <section className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        {/* LEFT CARDS */}
+        {/* Left Info Cards */}
         <div className="lg:col-span-5 flex flex-col gap-6">
           {[
             {
@@ -76,23 +130,15 @@ export default function ContactPage() {
           ].map((card, i) => (
             <motion.div
               key={i}
-              whileHover={{ x: 10 }}
-              className="flex-1 p-8 rounded-[2.5rem] border border-white/5 bg-white/[0.01] backdrop-blur-3xl hover:border-blue-500/30 transition-all group flex flex-col justify-center"
+              className="flex-1 p-8 rounded-[2.5rem] border border-white/5 bg-white/[0.01] backdrop-blur-3xl"
             >
               <div className="flex items-center gap-6">
-                <div className="w-14 h-14 bg-blue-500/10 rounded-2xl border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400">
                   {card.icon}
                 </div>
-
                 <div>
-                  <p className="text-xs text-blue-500 font-medium mb-1">
-                    {card.label.replace("_", " ")}
-                  </p>
-
-                  <h3 className="text-lg md:text-xl  text-white mb-1">
-                    {card.value}
-                  </h3>
-
+                  <p className="text-xs text-blue-500">{card.label}</p>
+                  <h3 className="text-lg text-white">{card.value}</h3>
                   <p className="text-sm text-slate-500">{card.sub}</p>
                 </div>
               </div>
@@ -100,69 +146,78 @@ export default function ContactPage() {
           ))}
         </div>
 
-        {/* RIGHT FORM */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="lg:col-span-7 bg-slate-950/40 border border-white/5 p-10 md:p-12 rounded-[3rem] backdrop-blur-3xl shadow-2xl relative flex flex-col justify-between"
-        >
-          <div className="absolute top-0 right-10 -translate-y-1/2 bg-blue-600 text-xs font-medium px-5 py-2 rounded-full text-white flex items-center gap-2">
-            <ShieldCheck size={14} /> System Active
-          </div>
-
-          <form
-            className="space-y-12 h-full flex flex-col justify-center"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <div className="space-y-2 border-l-2 border-blue-600 pl-5 mb-8">
+        {/* Right Form Section */}
+        <motion.div className="lg:col-span-7 bg-slate-950/40 border border-white/5 p-10 md:p-12 rounded-[3rem]">
+          {/* Form Start */}
+          <form className="space-y-10" onSubmit={handleSubmit}>
+            {/* Heading */}
+            <div className="space-y-2 border-l-2 border-blue-600 pl-5 mb-6">
               <span className="text-sm text-blue-500 font-medium">
-                Contact Form
+                Enquiry Form
               </span>
-              <h3 className="text-2xl md:text-3xl  text-white">
-                Send Your Details
-              </h3>
+              <h3 className="text-2xl text-white">Request a Call Back</h3>
             </div>
 
-            <div className="space-y-10 mb-12">
-              <div>
-                <label className="text-sm text-slate-400 mb-2 block">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  className="w-full bg-transparent border-b border-slate-800 focus:border-blue-600 py-2 text-base font-medium outline-none text-white placeholder:text-slate-700"
-                  placeholder="Full Name"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm text-slate-400 mb-2 block">
-                  Mobile Number
-                </label>
-                <input
-                  type="tel"
-                  className="w-full bg-transparent border-b border-slate-800 focus:border-blue-600 py-2 text-base font-medium outline-none text-white placeholder:text-slate-700"
-                  placeholder="+91 Mobile"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm text-slate-400 mb-2 block">
-                  Message
-                </label>
-                <textarea
-                  rows="1"
-                  className="w-full bg-transparent border-b border-slate-800 focus:border-blue-600 py-2 text-base font-medium outline-none text-white placeholder:text-slate-700 resize-none"
-                  placeholder="Details..."
-                />
-              </div>
+            {/* Name Input */}
+            <div className="flex items-center gap-3 border-b border-slate-800 py-2">
+              <User size={18} />
+              <Input
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                type="text"
+                placeholder="Full Name"
+                className="bg-transparent border-0"
+              />
             </div>
 
-            <button className="w-full h-16 bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2">
-              Send Message
+            {/* Phone Input */}
+            <div className="flex items-center gap-3 border-b border-slate-800 py-2">
+              <Phone size={18} />
+              <Input
+                value={form.phone}
+                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                type="tel"
+                placeholder="+91 Mobile Number"
+                className="bg-transparent border-0"
+              />
+            </div>
+
+            {/* Course Select */}
+            <div className="flex items-center gap-3 border-b border-slate-800 py-2">
+              <BookOpen size={18} />
+
+              <Select
+                onValueChange={(value) => setForm({ ...form, course: value })}
+              >
+                <SelectTrigger className="bg-transparent border-0 text-white">
+                  <SelectValue placeholder="Select Course" />
+                </SelectTrigger>
+
+                <SelectContent className="bg-white text-black">
+                  <SelectItem value="Full Stack Development">
+                    Full Stack Development
+                  </SelectItem>
+                  <SelectItem value="Front End Development">
+                    Front End Development
+                  </SelectItem>
+                  <SelectItem value="Data Analytics">
+                    Data Analytics with Python
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full h-14 bg-blue-600"
+            >
+              {loading ? "Submitting..." : "Submit Now"}
               <Zap size={18} />
-            </button>
+            </Button>
           </form>
+          {/* Form End */}
         </motion.div>
       </section>
     </div>

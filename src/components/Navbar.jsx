@@ -1,6 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 import {
   Menu,
   X,
@@ -12,6 +13,8 @@ import {
   Shield,
 } from "lucide-react";
 
+import { supabase } from "@/lib/supabase";
+
 const links = [
   { name: "Home", path: "/", icon: Home },
   { name: "About", path: "/about", icon: Info },
@@ -21,15 +24,19 @@ const links = [
 
 export default function Navbar() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Scroll effect
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Body scroll lock (mobile menu)
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
     return () => {
@@ -53,7 +60,6 @@ export default function Navbar() {
             className="group flex flex-col items-start select-none outline-none shrink-0"
           >
             <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
-              {/* Left Block */}
               <div className="flex flex-col justify-center min-w-fit sm:min-w-[130px] leading-[1.1]">
                 <h1 className="text-md sm:text-[28px] lg:text-[32px] font-extrabold tracking-[0.015em] text-white">
                   NADILIX
@@ -61,19 +67,15 @@ export default function Navbar() {
 
                 <div className="flex items-center gap-1 mt-[1px]">
                   <span className="h-[1px] w-3 sm:w-4 bg-slate-600" />
-
                   <span className="text-[8px] sm:text-[10px] lg:text-[11px] font-medium tracking-[0.22em] text-slate-400 uppercase">
                     CODING LAB
                   </span>
-
                   <span className="h-[1px] w-3 sm:w-4 bg-slate-600" />
                 </div>
               </div>
 
-              {/* Divider */}
               <div className="h-5 sm:h-6 lg:h-7 w-[1px] bg-gradient-to-b from-transparent via-slate-700 to-transparent" />
 
-              {/* Right Block */}
               <div className="flex flex-col justify-center min-w-fit sm:min-w-[130px] leading-[1.3]">
                 <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-[0.16em] text-blue-500 uppercase">
                   Full Stack
@@ -85,6 +87,7 @@ export default function Navbar() {
               </div>
             </div>
           </Link>
+
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-6">
             <nav className="flex items-center gap-2">
@@ -107,8 +110,9 @@ export default function Navbar() {
               })}
             </nav>
 
+            {/* Auth Button */}
             <Link
-              to="/admin"
+              to="/admin/dashboard"
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition"
             >
               <Shield size={16} />
@@ -152,40 +156,7 @@ export default function Navbar() {
                 <X size={22} />
               </button>
 
-              <div className="flex flex-col items-start mb-10 select-none">
-                <div className="flex items-center gap-2">
-                  {/* Left Block */}
-                  <div className="flex flex-col justify-center">
-                    <h2 className="text-xl font-extrabold tracking-[0.015em] text-white leading-none">
-                      NADILIX
-                    </h2>
-
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="h-[1px] w-3 bg-slate-600" />
-
-                      <span className="text-[8px] font-medium tracking-[0.22em] text-slate-400 uppercase leading-none">
-                        CODING LAB
-                      </span>
-
-                      <span className="h-[1px] w-3 bg-slate-600" />
-                    </div>
-                  </div>
-
-                  {/* Divider */}
-                  <div className="h-5 w-[1px] bg-gradient-to-b from-transparent via-slate-700 to-transparent" />
-
-                  {/* Right Block */}
-                  <div className="flex flex-col justify-center">
-                    <span className="text-[9px] font-semibold tracking-[0.16em] text-blue-500 uppercase leading-none">
-                      Full Stack
-                    </span>
-
-                    <span className="mt-1 text-[8px] font-medium tracking-[0.16em] text-slate-400 uppercase leading-none">
-                      Data Analytics
-                    </span>
-                  </div>
-                </div>
-              </div>
+              {/* Links */}
               <div className="space-y-4">
                 {links.map((link, i) => {
                   const Icon = link.icon;
@@ -220,15 +191,29 @@ export default function Navbar() {
                 })}
               </div>
 
+              {/* Auth Button Mobile */}
               <div className="mt-8">
-                <Link
-                  to="/admin"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center justify-center gap-2 p-4 rounded-xl border border-blue-500 text-blue-400 hover:bg-blue-600 hover:text-white transition font-medium"
-                >
-                  <Shield size={18} />
-                  Admin
-                </Link>
+                {user ? (
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setOpen(false);
+                    }}
+                    className="flex items-center justify-center gap-2 p-4 rounded-xl bg-red-600 text-white font-medium"
+                  >
+                    <Shield size={18} />
+                    Logout
+                  </button>
+                ) : (
+                  <Link
+                    to="/admin"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-center gap-2 p-4 rounded-xl border border-blue-500 text-blue-400 hover:bg-blue-600 hover:text-white transition font-medium"
+                  >
+                    <Shield size={18} />
+                    Admin
+                  </Link>
+                )}
               </div>
             </motion.div>
           </>

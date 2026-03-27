@@ -10,14 +10,13 @@ import Courses from "./pages/Courses";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
-import AdminDashboard from "./pages/AdminDashboard";
+import AdminDashboard from "./pages/MainDashboard";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
 
-      {/* Main Content Wrapper */}
       <div className="pt-[60px] min-h-screen bg-[#02040a]">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -25,10 +24,10 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
 
-          {/* Admin Login */}
+          {/* Login */}
           <Route path="/admin" element={<Login />} />
 
-          {/* Protected Dashboard */}
+          {/* Protected */}
           <Route
             path="/admin/dashboard"
             element={
@@ -41,7 +40,6 @@ export default function App() {
       </div>
 
       <Footer />
-
       <Toaster position="top-right" richColors closeButton />
     </BrowserRouter>
   );

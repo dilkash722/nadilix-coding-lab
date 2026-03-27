@@ -11,6 +11,7 @@ import {
   Globe,
   ChevronRight,
   Shield,
+  LayoutDashboard,
 } from "lucide-react";
 
 import { supabase } from "@/lib/supabase";
@@ -28,15 +29,47 @@ export default function Navbar() {
 
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState(null);
 
-  // Scroll effect
+  // user fetch + listener
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUser(data?.user || null);
+    };
+    getUser();
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user || null);
+      },
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  // logout
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (!error) {
+      toast.success("Logged out");
+      navigate("/");
+    } else {
+      toast.error("Logout failed");
+    }
+  };
+
+  // scroll effect
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Body scroll lock (mobile menu)
+  // body scroll lock
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
     return () => {
@@ -57,34 +90,35 @@ export default function Navbar() {
           {/* Branding */}
           <Link
             to="/"
-            className="group flex flex-col items-start select-none outline-none shrink-0"
+            className="group flex items-center gap-3 sm:gap-3 lg:gap-4 shrink-0"
           >
-            <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
-              <div className="flex flex-col justify-center min-w-fit sm:min-w-[130px] leading-[1.1]">
-                <h1 className="text-md sm:text-[28px] lg:text-[32px] font-extrabold tracking-[0.015em] text-white">
-                  NADILIX
-                </h1>
+            {/* LEFT */}
+            <div className="flex flex-col justify-center leading-[1.1]">
+              <h1 className="text-[22px] sm:text-[28px] lg:text-[32px] font-extrabold tracking-[0.015em] text-white">
+                NADILIX
+              </h1>
 
-                <div className="flex items-center gap-1 mt-[1px]">
-                  <span className="h-[1px] w-3 sm:w-4 bg-slate-600" />
-                  <span className="text-[8px] sm:text-[10px] lg:text-[11px] font-medium tracking-[0.22em] text-slate-400 uppercase">
-                    CODING LAB
-                  </span>
-                  <span className="h-[1px] w-3 sm:w-4 bg-slate-600" />
-                </div>
-              </div>
-
-              <div className="h-5 sm:h-6 lg:h-7 w-[1px] bg-gradient-to-b from-transparent via-slate-700 to-transparent" />
-
-              <div className="flex flex-col justify-center min-w-fit sm:min-w-[130px] leading-[1.3]">
-                <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-semibold tracking-[0.16em] text-blue-500 uppercase">
-                  Full Stack
+              <div className="flex items-center gap-1 mt-[2px]">
+                <span className="h-[1px] w-4 sm:w-4 bg-slate-600" />
+                <span className="text-[9px] sm:text-[10px] lg:text-[11px] font-medium tracking-[0.22em] text-slate-400 uppercase">
+                  CODING LAB
                 </span>
-
-                <span className="mt-[2px] sm:mt-[3px] text-[8px] sm:text-[9px] lg:text-[10px] font-medium tracking-[0.16em] text-slate-400 uppercase group-hover:text-emerald-400 transition-colors duration-300">
-                  Data Analytics
-                </span>
+                <span className="h-[1px] w-4 sm:w-4 bg-slate-600" />
               </div>
+            </div>
+
+            {/* Divider */}
+            <div className="h-6 sm:h-6 lg:h-7 w-[1px] bg-gradient-to-b from-transparent via-slate-700 to-transparent" />
+
+            {/* RIGHT */}
+            <div className="flex flex-col justify-center leading-[1.2]">
+              <span className="text-[10px] sm:text-[10px] lg:text-[11px] font-semibold tracking-[0.16em] text-blue-500 uppercase">
+                Full Stack
+              </span>
+
+              <span className="mt-[2px] text-[9px] sm:text-[9px] lg:text-[10px] font-medium tracking-[0.16em] text-slate-400 uppercase group-hover:text-emerald-400 transition-colors duration-300">
+                Data Analytics
+              </span>
             </div>
           </Link>
 
@@ -110,13 +144,12 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Auth Button */}
             <Link
-              to="/admin/dashboard"
+              to={user ? "/admin/dashboard" : "/admin"}
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition"
             >
-              <Shield size={16} />
-              Admin
+              {user ? <LayoutDashboard size={16} /> : <Shield size={16} />}
+              {user ? "Dashboard" : "Admin"}
             </Link>
           </div>
 
@@ -156,6 +189,36 @@ export default function Navbar() {
                 <X size={22} />
               </button>
 
+              {/* Branding same as navbar */}
+              <div className="mb-10">
+                <div className="flex items-center gap-2">
+                  <div className="flex flex-col leading-[1.1]">
+                    <h1 className="text-[24px] font-extrabold text-white">
+                      NADILIX
+                    </h1>
+
+                    <div className="flex items-center gap-1 mt-[2px]">
+                      <span className="h-[1px] w-4 bg-slate-600" />
+                      <span className="text-[10px] tracking-[0.22em] text-slate-400 uppercase">
+                        CODING LAB
+                      </span>
+                      <span className="h-[1px] w-4 bg-slate-600" />
+                    </div>
+                  </div>
+
+                  <div className="h-6 w-[1px] bg-gradient-to-b from-transparent via-slate-700 to-transparent" />
+
+                  <div className="flex flex-col">
+                    <span className="text-[10px] text-blue-500 uppercase">
+                      Full Stack
+                    </span>
+                    <span className="text-[9px] text-slate-400 uppercase">
+                      Data Analytics
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               {/* Links */}
               <div className="space-y-4">
                 {links.map((link, i) => {
@@ -191,29 +254,16 @@ export default function Navbar() {
                 })}
               </div>
 
-              {/* Auth Button Mobile */}
+              {/* Admin Button same behavior as desktop */}
               <div className="mt-8">
-                {user ? (
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setOpen(false);
-                    }}
-                    className="flex items-center justify-center gap-2 p-4 rounded-xl bg-red-600 text-white font-medium"
-                  >
-                    <Shield size={18} />
-                    Logout
-                  </button>
-                ) : (
-                  <Link
-                    to="/admin"
-                    onClick={() => setOpen(false)}
-                    className="flex items-center justify-center gap-2 p-4 rounded-xl border border-blue-500 text-blue-400 hover:bg-blue-600 hover:text-white transition font-medium"
-                  >
-                    <Shield size={18} />
-                    Admin
-                  </Link>
-                )}
+                <Link
+                  to={user ? "/admin/dashboard" : "/admin"}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center gap-2 p-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium transition"
+                >
+                  {user ? <LayoutDashboard size={18} /> : <Shield size={18} />}
+                  {user ? "Dashboard" : "Admin Login"}
+                </Link>
               </div>
             </motion.div>
           </>

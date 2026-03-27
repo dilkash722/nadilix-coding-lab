@@ -176,7 +176,10 @@ export default function StudentForm({ onClose, onSuccess }) {
                 </div>
               </SelectTrigger>
 
-              <SelectContent className="bg-[#0a0c12] border-white/10 text-white">
+              <SelectContent
+                position="popper"
+                className="bg-[#0a0c12] border-white/10 text-white z-50"
+              >
                 {courses.map((c) => (
                   <SelectItem key={c.id} value={String(c.id)}>
                     {c.name}
@@ -217,23 +220,17 @@ export default function StudentForm({ onClose, onSuccess }) {
           </div>
 
           {/* Buttons */}
-          <div className="flex gap-2 pt-2">
+          <div className="pt-2">
             <Button
               type="submit"
               disabled={loading}
-              className="flex-1 flex items-center gap-2"
+              className="w-full flex items-center justify-center gap-2 
+              bg-white/5 border border-white/10 text-slate-400
+              hover:bg-white/10 hover:border-white/20 hover:text-white 
+                transition-all duration-300 active:scale-[0.98]"
             >
               <Save size={14} />
               {loading ? "Saving..." : "Save Student"}
-            </Button>
-
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={onClose}
-              className="flex-1"
-            >
-              Cancel
             </Button>
           </div>
         </form>

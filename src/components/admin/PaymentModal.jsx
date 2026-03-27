@@ -109,18 +109,19 @@ export default function PaymentModal({ student, onClose, onSuccess }) {
         </div>
 
         {/* Footer */}
-        <div className="flex gap-2 px-5 py-4 border-t border-white/10">
+        <div className="px-5 py-4 border-t border-white/10">
           <Button
             onClick={handleSubmit}
             disabled={loading}
-            className="flex-1 flex items-center gap-2"
+            className="w-full flex items-center justify-center gap-2 
+    bg-white/[0.04] border border-white/10 text-slate-400
+    hover:bg-white/[0.08] hover:border-white/20
+    hover:shadow-md hover:shadow-black/30 hover:text-white
+    backdrop-blur-md
+    transition-all duration-300 active:scale-[0.98]"
           >
-            <CreditCard size={14} />
+            <CreditCard size={14} className="opacity-80" />
             {loading ? "Processing..." : "Confirm"}
-          </Button>
-
-          <Button variant="secondary" onClick={onClose} className="flex-1">
-            Cancel
           </Button>
         </div>
       </div>

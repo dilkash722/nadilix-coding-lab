@@ -106,49 +106,34 @@ export default function Courses() {
   return (
     <div className="bg-[#02040a] text-white min-h-screen font-sans pb-24 selection:bg-blue-600/30">
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-28 pb-20 px-6 text-center">
+      <section className="relative pt-24 pb-16 px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-            staggerChildren: 0.15,
-          }}
-          className="max-w-5xl mx-auto space-y-6"
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto"
         >
-          {/* Small Label */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-sm text-blue-500 font-medium tracking-wide"
-          >
+          {/* Simple Professional Label */}
+          <span className="text-blue-500 text-xs font-bold uppercase tracking-widest block mb-4">
             Our Programs
-          </motion.p>
+          </span>
 
-          {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-4xl sm:text-5xl md:text-6xl  text-white leading-tight uppercase"
-          >
-            We Offers
-          </motion.h1>
+          {/* Clean, Strong Heading */}
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight leading-tight">
+            What We <span className="text-blue-500">Offer</span>
+          </h2>
 
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
-          >
-            Well structured training programs focused on strong fundamentals,
+          {/* Simple, Professional Description */}
+          <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-normal">
+            Well-structured training programs focused on{" "}
+            <span className="text-slate-200">strong fundamentals</span>,
             practical skills, and real project experience used in the software
             industry.
-          </motion.p>
+          </p>
+
+          {/* Subtle Minimal Divider */}
+          <div className="w-12 h-1 bg-blue-500/30 mx-auto mt-12 rounded-full" />
         </motion.div>
       </section>
       {/* --- COURSE GRID --- */}

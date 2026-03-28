@@ -5,11 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import TechStackStrip from "@/components/TechStackStrip";
 import {
-  Terminal,
-  Cpu,
-  Workflow,
-  Laptop,
-  Layers,
+  Briefcase,
+  CheckCircle2,
   Code2,
   Database,
   BrainCircuit,
@@ -17,9 +14,6 @@ import {
   MonitorPlay,
   Presentation,
   GitBranch,
-  Zap,
-  Binary,
-  Code,
   Shapes,
   BookOpen,
   MessageCircle,
@@ -117,150 +111,292 @@ const HomePage = () => {
         </motion.div>
       </section>
 
-      {/* --- 2) WHAT MAKES US DIFFERENT (BENTO STYLE) --- */}
-      <section className="relative z-10 pt-8 pb-20 px-6 max-w-7xl mx-auto">
+      {/* --- CRAEER PATH --- */}
+      <section className="relative z-10 px-6 py-32 max-w-7xl mx-auto overflow-hidden">
+        {/* Section Header */}
+        <div className="max-w-4xl text-left mb-20 relative">
+          {/* Subtle Accent Line */}
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "80px" }}
+            className="h-1.5 bg-blue-600 rounded-full mb-8"
+          />
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-[clamp(2.5rem,7vw,4.5rem)] font-black text-white mb-8 tracking-[-0.05em] leading-[0.95] md:leading-[1]"
+          >
+            Master{" "}
+            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+              In-Demand
+            </span>
+            <br />
+            Industry Skills
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-slate-400 text-lg md:text-xl font-light max-w-2xl leading-relaxed border-l-2 border-white/10 pl-8"
+          >
+            Learn modern skills that help you{" "}
+            <span className="text-white font-medium">build, earn and grow</span>{" "}
+            in the global tech landscape.
+          </motion.p>
+        </div>
+
+        {/* Bento Grid Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            {
+              icon: <Code2 size={28} />,
+              title: "Frontend Development",
+              desc: "Build modern UI using React, Tailwind and APIs.",
+            },
+            {
+              icon: <Code2 size={28} />,
+              title: "Full Stack Development",
+              desc: "Build complete web apps with frontend, backend and database.",
+            },
+            {
+              icon: <Database size={28} />,
+              title: "Data Analytics",
+              desc: "Work with real data using Python, SQL and dashboards.",
+            },
+            {
+              icon: <BrainCircuit size={28} />,
+              title: "Programming with AI",
+              desc: "Use AI tools to code faster and build smarter projects.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              whileHover={{ y: -12 }}
+              className="group relative p-10 rounded-[2.5rem] bg-gradient-to-b from-white/[0.04] to-transparent border border-white/[0.08] hover:border-blue-500/40 transition-all duration-500 overflow-hidden"
+            >
+              {/* Card Glow Effect on Hover */}
+              <div className="absolute -inset-px bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className="relative z-10">
+                <div className="mb-10 p-4 inline-block rounded-2xl bg-blue-500/10 text-blue-400 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110 transition-all duration-500 shadow-xl shadow-blue-500/5">
+                  {item.icon}
+                </div>
+
+                <h3 className="text-2xl font-bold text-white mb-4 tracking-tight leading-snug">
+                  {item.title}
+                </h3>
+
+                <p className="text-slate-400 leading-relaxed mb-10 text-[15px] font-light">
+                  {item.desc}
+                </p>
+
+                <div className="flex items-center text-[11px] font-black text-blue-400 uppercase tracking-[0.2em] group-hover:gap-3 transition-all cursor-pointer">
+                  Learn More{" "}
+                  <ArrowRight
+                    size={14}
+                    className="opacity-0 group-hover:opacity-100 transition-all"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* --- WHY CHOOSE NADILIX--- */}
+      <section className="relative z-10 px-4 md:px-6 py-20 bg-blue-600/5 border-y border-white/5">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+          <div>
+            {/* Heading with better letter spacing & line height */}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl md:text-7xl font-black text-white mb-12 tracking-[-0.06em] leading-[0.9] md:leading-[0.95]"
+            >
+              <span className="opacity-50 font-light tracking-tight text-3xl md:text-4xl block mb-2">
+                The Nadilix Advantage
+              </span>
+              Why Students <br />
+              <span className="relative">
+                <span className="bg-gradient-to-br from-blue-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                  Choose Nadilix?
+                </span>
+                {/* Subtle underline for emphasis */}
+                <motion.span
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100%" }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                  className="absolute -bottom-2 left-0 h-[3px] bg-gradient-to-r from-blue-500/50 to-transparent rounded-full"
+                />
+              </span>
+            </motion.h2>
+
+            {/* List with modern spacing and glass-pills */}
+            <div className="grid gap-5">
+              {[
+                "Real Project Learning",
+                "Personal Guidance",
+                "Modern Tech Stack Training",
+                "Job Ready",
+              ].map((point, idx) => (
+                <motion.div
+                  key={idx}
+                  whileHover={{ x: 10 }}
+                  className="flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-blue-500/20 transition-all group"
+                >
+                  <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500 transition-colors duration-300">
+                    <CheckCircle2
+                      className="text-emerald-500 group-hover:text-white"
+                      size={20}
+                    />
+                  </div>
+
+                  <span className="text-lg md:text-xl font-medium text-slate-200 tracking-tight">
+                    {point}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-4 pt-8">
+              <div className="h-40 bg-white/5 border border-white/10 rounded-2xl flex flex-col items-center justify-center p-4">
+                <span className="text-3xl font-bold text-white">100%</span>
+                <span className="text-xs text-slate-400">Practical</span>
+              </div>
+
+              <div className="h-56 bg-blue-600 rounded-2xl flex flex-col items-center justify-center p-4 text-center">
+                <span className="text-3xl font-bold text-white">Live</span>
+                <span className="text-sm text-white/80">Coding Sessions</span>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="h-56 bg-indigo-600 rounded-2xl flex flex-col items-center justify-center p-4 text-center">
+                <span className="text-3xl font-bold text-white">24/7</span>
+                <span className="text-sm text-white/80">Expert Help</span>
+              </div>
+
+              <div className="h-40 bg-white/5 border border-white/10 rounded-2xl flex flex-col items-center justify-center p-4">
+                <span className="text-3xl font-bold text-white">0%</span>
+                <span className="text-xs text-slate-400 text-center">
+                  Boring Theory
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* JOB ROLES */}
+      <section className="relative z-10 px-4 md:px-6 py-20 max-w-7xl mx-auto">
         {/* Heading */}
-        <div className="space-y-4 mb-12">
-          <span className="text-blue-500 text-xs uppercase">
-            Practical Learning
-          </span>
+        <div className="max-w-3xl mb-16 text-left relative">
+          {/* Chota decorative element */}
+          <div className="w-12 h-1 bg-blue-600 rounded-full mb-6 opacity-80" />
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-wide text-white uppercase">
-            Code Practice
+          <h2 className="text-[clamp(2rem,6vw,3.5rem)] font-black text-white mb-6 tracking-[-0.04em] leading-[1.1]">
+            Ready for{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+              Real-World
+            </span>
+            <br />
+            Job Roles
           </h2>
-        </div>
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-[280px] gap-6">
-          {/* Box 1 */}
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="md:col-span-8 bg-[#0a0c12] border border-white/5 p-8 md:p-10 rounded-[3.5rem] group shadow-2xl"
-          >
-            <div className="space-y-6">
-              <div className="p-4 bg-blue-600/10 w-fit rounded-xl text-blue-500">
-                <MonitorPlay size={30} />
-              </div>
 
-              <h3 className="text-2xl md:text-4xl  text-white leading-snug tracking-tight uppercase">
-                Live Coding
-              </h3>
-
-              <p className="text-slate-400 text-sm md:text-lg leading-relaxed max-w-md">
-                Software is built step by step in real time so beginners clearly
-                understand how development actually works.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Box 2 */}
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="md:col-span-4 bg-[#0a0c12] border border-white/5 p-8 md:p-10 rounded-[3.5rem] group shadow-2xl"
-          >
-            <div className="space-y-5">
-              <div className="p-4 bg-indigo-600/10 w-fit rounded-xl text-indigo-400">
-                <BrainCircuit size={28} />
-              </div>
-
-              <h3 className="text-xl md:text-2xl  text-white leading-snug tracking-tight uppercase">
-                AI Assisted Learning
-              </h3>
-
-              <p className="text-slate-400 text-base md:text-lg max-w-md leading-relaxed">
-                Students learn how to use AI tools in their daily coding
-                workflow for faster and smarter development.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Box 3 */}
-          <motion.div
-            whileHover={{ y: -10 }}
-            className="md:col-span-4 bg-[#0a0c12] border border-white/5 p-8 md:p-10 rounded-[3.5rem] group shadow-2xl"
-          >
-            <div className="space-y-5">
-              <div className="p-4 bg-blue-500/10 w-fit rounded-xl text-blue-400">
-                <Laptop size={28} />
-              </div>
-
-              <h3 className="text-xl md:text-2xl  text-white leading-snug tracking-tight uppercase">
-                Bring Your Laptop
-              </h3>
-
-              <p className="text-slate-400 text-base md:text-lg max-w-md leading-relaxed">
-                Students write, test, and run code on their own systems just
-                like a real developer workspace.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Box 4 */}
-          <motion.div
-            whileHover={{ y: -8 }}
-            className="md:col-span-8 relative bg-blue-600 p-8 md:p-12 rounded-[3rem] text-white overflow-hidden group shadow-[0_30px_60px_-15px_rgba(37,99,235,0.4)]"
-          >
-            {/* Background Text */}
-            <div className="absolute -right-6 top-1/2 -translate-y-1/2 text-[100px] md:text-[160px] font-black opacity-10 tracking-tight select-none pointer-events-none transition-transform duration-700 group-hover:translate-x-4">
-              Nadilix
-            </div>
-
-            {/* Content */}
-            <div className="relative z-10 space-y-2">
-              <div className="p-4 bg-white/20 w-fit rounded-xl">
-                <Workflow size={30} />
-              </div>
-
-              <h3 className="text-3xl md:text-5xl  leading-[1.1] tracking-tight">
-                Real Workflow
-              </h3>
-
-              <p className="text-blue-100 text-base md:text-lg max-w-lg leading-relaxed">
-                Students observe how a project moves from planning to deployment
-                during live sessions and understand the complete development
-                process.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-      {/* --- TECH STACK STRIP SECTION --- */}
-      <section className="relative z-10 px-6 py-12">
-        <div className="max-w-[77rem] mx-auto">
-          {/* Heading */}
-          <div className="space-y-4 mb-12">
-            <span className="text-blue-500 text-xs  tracking-wide uppercase">
-              Technology Stack
-            </span>
-
-            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-wide text-white uppercase">
-              Tech Stack
-            </h2>
-          </div>
-
-          {/* Transparent Card */}
-          <div className="border border-white/10 rounded-3xl px-8 md:px-14 py-10">
-            <TechStackStrip />
-          </div>
-        </div>
-      </section>
-
-      {/* --- 3) HOW CLASSES RUN DAILY --- */}
-      <section className="relative z-10 py-20 px-6 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8">
-          <div className="space-y-4">
-            <span className="text-blue-500 text-xs  tracking-wide uppercase">
-              Practice System
-            </span>
-
-            <h2 className="text-4xl sm:text-5xl md:text-6xl  tracking-wide text-white uppercase">
-              Daily Workflow
-            </h2>
-          </div>
-
-          <p className="text-slate-400 w-full md:max-w-sm text-sm md:text-base leading-relaxed md:border-l border-white/10 md:pl-6">
-            Our standard routine designed to build strong practical skills
-            through daily coding and project work.
+          <p className="text-slate-400 text-lg md:text-xl font-light max-w-xl leading-relaxed border-l-2 border-white/10 pl-6">
+            Bridge the gap between learning and earning. Get ready for these
+            industry roles after completing your training.
           </p>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              title: "Frontend Developer",
+              desc: "Build modern UI using React, Tailwind and APIs.",
+            },
+            {
+              title: "Backend Developer",
+              desc: "Create APIs, manage databases and server logic.",
+            },
+            {
+              title: "Full Stack Developer",
+              desc: "Work on frontend, backend and database together.",
+            },
+            {
+              title: "Data Analyst",
+              desc: "Analyze data using Python, SQL and dashboards.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -8 }}
+              className="group p-7 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-blue-500/40 transition-all duration-300 backdrop-blur-xl"
+            >
+              {/* Icon */}
+              <div className="mb-5 p-3 inline-flex rounded-xl bg-blue-500/10 text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition">
+                <Briefcase size={22} />
+              </div>
+
+              {/* Title */}
+              <h3 className="text-lg font-semibold text-white mb-2">
+                {item.title}
+              </h3>
+
+              {/* Desc */}
+              <p className="text-sm text-slate-400 leading-relaxed">
+                {item.desc}
+              </p>
+
+              {/* Bottom line */}
+              <div className="mt-5 text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition">
+                Explore role →
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* --- DAILY WORKFOLLOW -----*/}
+      <section className="relative z-10 py-20 px-6 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-10 relative">
+          {/* Left Side: Heading Group */}
+          <div className="space-y-4">
+            {/* Main Impactful Heading */}
+            <motion.h2
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-6xl font-black text-white tracking-[-0.05em] leading-[0.95]"
+            >
+              Daily{" "}
+              <span className="bg-gradient-to-r from-blue-500 to-indigo-400 bg-clip-text text-transparent">
+                Workflow
+              </span>
+            </motion.h2>
+          </div>
+
+          {/* Right Side: Description with Premium Border */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-slate-400 w-full md:max-w-md text-lg md:text-xl font-light leading-relaxed md:border-l-2 border-blue-600/30 md:pl-8 opacity-80"
+          >
+            Our standard routine designed to build{" "}
+            <span className="text-slate-200 font-medium whitespace-nowrap">
+              strong practical skills
+            </span>{" "}
+            through daily coding and project work.
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">

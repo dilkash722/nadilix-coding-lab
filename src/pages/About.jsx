@@ -31,44 +31,34 @@ const AboutPage = () => {
         }}
       />
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-28 pb-12 px-6 text-center">
+      <section className="relative pt-24 pb-16 px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-5xl mx-auto space-y-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto"
         >
-          {/* Small Label */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-xs sm:text-sm text-blue-500  tracking-wide uppercase"
-          >
+          {/* Simple Blue Label */}
+          <span className="text-blue-500 text-xs font-bold uppercase tracking-widest block mb-4">
             About Nadilix
-          </motion.p>
+          </span>
 
-          {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-4xl sm:text-6xl md:text-7xl  text-white leading-[1.15] uppercase tracking-tight"
-          >
-            Real Development
-          </motion.h1>
+          {/* Clean, Bold Heading - Not too heavy */}
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight leading-tight">
+            Real <span className="text-blue-500">Development</span>
+          </h2>
 
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.6 }}
-            className="text-slate-400 text-mono sm:text-lg md:text-xl leading-relaxed max-w-3xl mx-auto font-normal"
-          >
-            We focus on practical learning where students write code daily,
-            build projects step by step, and understand how real software
-            development works in the industry.
-          </motion.p>
+          {/* Simple, Readable Description */}
+          <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-normal">
+            We focus on{" "}
+            <span className="text-slate-200">practical learning</span> where
+            students write code daily, build projects step by step, and
+            understand how real software development works in the industry.
+          </p>
+
+          {/* Simple Divider Line */}
+          <div className="w-16 h-1 bg-blue-500/20 mx-auto mt-12 rounded-full" />
         </motion.div>
       </section>
 

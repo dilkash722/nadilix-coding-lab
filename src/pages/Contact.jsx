@@ -88,19 +88,32 @@ export default function ContactPage() {
   return (
     <div className="bg-[#02040a] text-white min-h-screen font-sans selection:bg-blue-600/30 overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative pt-28 pb-20 px-6 text-center">
-        <motion.div className="max-w-4xl mx-auto space-y-6">
-          <motion.p className="text-sm text-blue-500 font-medium tracking-wide">
+      <section className="relative pt-24 pb-16 px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto"
+        >
+          {/* Simple Professional Label */}
+          <span className="text-blue-500 text-xs font-bold uppercase tracking-widest block mb-4">
             Get in Touch
-          </motion.p>
+          </span>
 
-          <motion.h1 className="text-4xl sm:text-5xl md:text-6xl text-white leading-tight uppercase">
-            Contact Nadilix
-          </motion.h1>
+          {/* Clean, Strong Heading */}
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight leading-tight">
+            Contact <span className="text-blue-500">Nadilix</span>
+          </h2>
 
-          <motion.p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            Reach out for course details, admissions, and training guidance.
-          </motion.p>
+          {/* Simple, Professional Description */}
+          <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-normal">
+            Reach out for <span className="text-slate-200">course details</span>
+            , admissions, and expert training guidance to start your career.
+          </p>
+
+          {/* Subtle Minimal Divider */}
+          <div className="w-12 h-1 bg-blue-500/30 mx-auto mt-12 rounded-full" />
         </motion.div>
       </section>
 

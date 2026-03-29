@@ -18,11 +18,11 @@ export default function AdminRoute({ children }) {
 
   if (loading) return null;
 
-  // ❌ not logged in → login page
+  // not logged in → login page
   if (!user) {
     return <Navigate to="/admin" replace />;
   }
 
-  // ✅ logged in → dashboard
+  // logged in → dashboard
   return children;
 }

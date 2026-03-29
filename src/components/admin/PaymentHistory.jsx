@@ -61,7 +61,7 @@ export default function PaymentHistory({ studentId }) {
                 <th className="py-2 px-2">#</th>
                 <th className="py-2 px-2">Date</th>
                 <th className="py-2 px-2">Amount</th>
-                <th className="py-2 px-2">Note</th>
+                <th className="py-2 px-2">Installment</th>
                 <th className="py-2 px-2">Method</th>
               </tr>
             </thead>
@@ -90,7 +90,7 @@ export default function PaymentHistory({ studentId }) {
                     </td>
 
                     <td className="py-2 px-2 text-slate-400">
-                      {p.note || "-"}
+                      {p.installment || "-"}
                     </td>
 
                     <td className="py-2 px-2 text-slate-400">

@@ -8,6 +8,13 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +22,7 @@ import { Button } from "@/components/ui/button";
 export default function PaymentModal({ student, onClose, onSuccess }) {
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
+  const [method, setMethod] = useState("cash");
 
   // ✅ calculate from course + payments
   const total = student.courses?.fee || 0;
@@ -44,7 +52,7 @@ export default function PaymentModal({ student, onClose, onSuccess }) {
 
       setLoading(true);
 
-      await addPayment(student.id, value);
+      await addPayment(student.id, value, method);
 
       toast.success("Payment added successfully", {
         icon: <CheckCircle size={16} />,
@@ -105,6 +113,27 @@ export default function PaymentModal({ student, onClose, onSuccess }) {
               onChange={(e) => setAmount(e.target.value)}
               className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-blue-500"
             />
+          </div>
+          {/* Payment Mode */}
+          <div>
+            <label className="text-xs text-slate-400">Payment Mode</label>
+
+            <Select value={method} onValueChange={setMethod}>
+              <SelectTrigger className="mt-1 w-full bg-white/5 border border-white/10 text-white">
+                <div className="flex items-center gap-2 w-full">
+                  <CreditCard size={16} className="text-blue-400" />
+                  <SelectValue placeholder="Select Payment Mode" />
+                </div>
+              </SelectTrigger>
+
+              <SelectContent
+                position="popper"
+                className="bg-[#0a0c12] border-white/10 text-white z-50"
+              >
+                <SelectItem value="cash">Cash</SelectItem>
+                <SelectItem value="online">Online</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

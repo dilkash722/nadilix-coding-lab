@@ -31,7 +31,7 @@ export async function getPayments(studentId) {
 }
 
 // ADD PAYMENT (FINAL)
-export async function addPayment(studentId, amount) {
+export async function addPayment(studentId, amount, method = "cash") {
   if (!amount || amount <= 0) {
     throw new Error("Invalid amount");
   }
@@ -47,15 +47,15 @@ export async function addPayment(studentId, amount) {
   const installmentNumber = (data?.length || 0) + 1;
 
   // 2. generate note
-  const note = `${getOrdinal(installmentNumber)} Installment`;
+  const installment = `${getOrdinal(installmentNumber)} Installment`;
 
   // 3. insert payment
   const { error } = await supabase.from("payments").insert([
     {
       student_id: studentId,
       amount,
-      note,
-      payment_method: "cash",
+      installment,
+      payment_method: method,
     },
   ]);
 

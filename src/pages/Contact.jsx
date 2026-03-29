@@ -33,6 +33,7 @@ export default function ContactPage() {
     name: "",
     phone: "",
     course: "",
+    hidden: "",
   });
 
   // Loading state for submit button
@@ -52,8 +53,22 @@ export default function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.name || !form.phone || !form.course) {
-      toast.error("All fields are required");
+    // honeypot (bot detect)
+    if (form.hidden) return;
+
+    // validation
+    if (!form.name || form.name.trim().length < 3) {
+      toast.error("Enter valid name");
+      return;
+    }
+
+    if (!/^[0-9]{10}$/.test(form.phone)) {
+      toast.error("Enter valid 10 digit phone");
+      return;
+    }
+
+    if (!form.course) {
+      toast.error("Select course");
       return;
     }
 
@@ -62,7 +77,7 @@ export default function ContactPage() {
 
       const { error } = await supabase.from("enquiries").insert([
         {
-          name: form.name,
+          name: form.name.trim(),
           phone: form.phone,
           course: form.course,
         },
@@ -76,6 +91,7 @@ export default function ContactPage() {
         name: "",
         phone: "",
         course: "",
+        hidden: "",
       });
     } catch (err) {
       console.error(err);
@@ -84,7 +100,6 @@ export default function ContactPage() {
       setLoading(false);
     }
   };
-
   return (
     <div className="bg-[#02040a] text-white min-h-screen font-sans selection:bg-blue-600/30 overflow-x-hidden">
       {/* Hero Section */}
@@ -163,6 +178,14 @@ export default function ContactPage() {
         <motion.div className="lg:col-span-7 bg-slate-950/40 border border-white/5 p-10 md:p-12 rounded-[3rem]">
           {/* Form Start */}
           <form className="space-y-10" onSubmit={handleSubmit}>
+            {/* Honeypot (hidden spam trap) */}
+            <input
+              type="text"
+              value={form.hidden}
+              onChange={(e) => setForm({ ...form, hidden: e.target.value })}
+              className="hidden"
+            />
+
             {/* Heading */}
             <div className="space-y-2 border-l-2 border-blue-600 pl-5 mb-6">
               <span className="text-sm text-blue-500 font-medium">

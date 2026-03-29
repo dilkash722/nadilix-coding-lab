@@ -34,6 +34,7 @@ export default function StudentForm({ onClose, onSuccess }) {
 
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [method, setMethod] = useState("cash");
 
   useEffect(() => {
     fetchCourses();
@@ -93,7 +94,7 @@ export default function StudentForm({ onClose, onSuccess }) {
       if (studentError) throw studentError;
 
       if (firstPayment > 0) {
-        await addPayment(student.id, firstPayment);
+        await addPayment(student.id, firstPayment, method);
       }
 
       toast.success("Student added successfully", {
@@ -114,14 +115,13 @@ export default function StudentForm({ onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#02040a] px-4">
-      {/* Background */}
+    <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center bg-[#02040a] px-4 pt-20 md:pt-10 pb-6">
       <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 blur-[140px] rounded-full" />
       <div className="absolute bottom-[10%] right-[-5%] w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full" />
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-[#0a0c12] border border-white/5 rounded-3xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto bg-[#0a0c12] border border-white/5 rounded-3xl shadow-2xl">
         {/* Header */}
         <div className="flex justify-between items-center px-5 py-4 border-b border-white/10">
           <h2 className="text-white text-base font-medium flex items-center gap-2">
@@ -189,34 +189,57 @@ export default function StudentForm({ onClose, onSuccess }) {
             </Select>
           </div>
 
-          {/* Total Fee (AUTO) */}
-          <div>
-            <label className="text-xs text-slate-400">Total Fee</label>
-            <div className="flex items-center gap-2 mt-1 bg-white/5 border border-white/10 rounded-lg px-3 opacity-70">
-              <Wallet size={16} className="text-blue-400" />
-              <input
-                type="number"
-                value={form.total_fee}
-                readOnly
-                className="w-full bg-transparent py-2 outline-none text-white"
-              />
+          <div className="grid grid-cols-2 gap-3">
+            {/* Total Fee */}
+            <div>
+              <label className="text-xs text-slate-400">Total Fee</label>
+              <div className="flex items-center gap-2 mt-1 bg-white/5 border border-white/10 rounded-lg px-3 opacity-70">
+                <Wallet size={16} className="text-blue-400" />
+                <input
+                  type="number"
+                  value={form.total_fee}
+                  readOnly
+                  className="w-full bg-transparent py-2 outline-none text-white"
+                />
+              </div>
+            </div>
+
+            {/* First Payment */}
+            <div>
+              <label className="text-xs text-slate-400">First Payment</label>
+              <div className="flex items-center gap-2 mt-1 bg-white/5 border border-white/10 rounded-lg px-3">
+                <Wallet size={16} className="text-green-400" />
+                <input
+                  type="number"
+                  placeholder="Enter"
+                  className="w-full bg-transparent py-2 outline-none text-white"
+                  onChange={(e) =>
+                    setForm({ ...form, first_payment: e.target.value })
+                  }
+                />
+              </div>
             </div>
           </div>
-
-          {/* First Payment */}
+          {/* Payment Mode */}
           <div>
-            <label className="text-xs text-slate-400">First Payment</label>
-            <div className="flex items-center gap-2 mt-1 bg-white/5 border border-white/10 rounded-lg px-3">
-              <Wallet size={16} className="text-green-400" />
-              <input
-                type="number"
-                placeholder="Enter first payment"
-                className="w-full bg-transparent py-2 outline-none text-white"
-                onChange={(e) =>
-                  setForm({ ...form, first_payment: e.target.value })
-                }
-              />
-            </div>
+            <label className="text-xs text-slate-400">Payment Mode</label>
+
+            <Select value={method} onValueChange={setMethod}>
+              <SelectTrigger className="mt-1 w-full bg-white/5 border border-white/10 text-white">
+                <div className="flex items-center gap-2 w-full">
+                  <Wallet size={16} className="text-blue-400" />
+                  <SelectValue placeholder="Select Mode" />
+                </div>
+              </SelectTrigger>
+
+              <SelectContent
+                position="popper"
+                className="bg-[#0a0c12] border-white/10 text-white z-50"
+              >
+                <SelectItem value="cash">Cash</SelectItem>
+                <SelectItem value="online">Online</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Buttons */}
